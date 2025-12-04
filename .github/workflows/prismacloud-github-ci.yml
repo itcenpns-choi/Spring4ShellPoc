@@ -15,8 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Download twistcli from the Prisma Cloud Compute Console
         run: |
-          curl --insecure --user ${{ secrets.PCC_USER }}:${{ secrets.PCC_PASS }} --output ./twistcli
-          ${{ secrets.PCC_CONSOLE_URL }}/api/v1/util/twistcli
+          curl --insecure --user ${{ secrets.PCC_USER }}:${{ secrets.PCC_PASS }} --output ./twistcli ${{ secrets.PCC_CONSOLE_URL }}/api/v1/util/twistcli
           chmod a+x ./twistcli
       - name: Build the image
         run: |

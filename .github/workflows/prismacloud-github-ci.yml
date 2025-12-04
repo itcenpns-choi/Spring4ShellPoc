@@ -3,7 +3,7 @@ name: Prisma Cloud Compute Image Scan
 on: [push, pull_request]
 
 env:
-  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  IMAGE_NAME: myapp
   
 jobs:
   build-and-scan:

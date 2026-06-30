@@ -2,17 +2,17 @@
 
 ## This is for testing and demo purposes
 
-### STEP 0. EKS와 같은 K8S 클러스터, 클러스터에 접속가능한 VM 준비
+#### STEP 0. EKS와 같은 K8S 클러스터, 클러스터에 접속가능한 VM 준비
 
-### STEP 1. Git 설치후 본 Repo 를 clone 혹은 .zip으로 다운로드
+#### STEP 1. Git 설치후 본 Repo 를 clone 혹은 .zip으로 다운로드
 
-### STEP 2. Dockerfile을 docker build . -t spring4shell 로 빌드하여 Registry에 올리거나, 로컬 경로 메모
+#### STEP 2. Dockerfile을 docker build . -t spring4shell 로 빌드하여 Registry에 올리거나, 로컬 경로 메모
 
 <img width="1996" height="594" alt="image" src="https://github.com/user-attachments/assets/5939392d-e613-4c49-b052-6dfe67603e10" />
 
-### STEP 3. kubectl apply -f xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정(주석 참조)
+#### STEP 3. kubectl apply -f xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정(주석 참조)
 
-### STEP 4. kubectl get all 로 pod 및 service 확인
+#### STEP 4. kubectl get all 로 pod 및 service 확인
 
 아래 YAML file에 kubectl apply:
 
@@ -32,7 +32,7 @@ service/jie-sprig4shell created
 
 Coinminer pod 및 Spring4Shell pod - 취약한 pod 가 2개 생성됩니다.
 
-### STEP 5. Use cases
+#### STEP 5. Use cases
 ---
 ## 1. Coinminer Attack
 #### Get the malware sample from Wildfire and execute it

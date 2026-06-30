@@ -10,7 +10,7 @@
 
 <img width="1996" height="594" alt="image" src="https://github.com/user-attachments/assets/5939392d-e613-4c49-b052-6dfe67603e10" />
 
-#### STEP 3. kubectl apply -f xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정(주석 참조)
+#### STEP 3. xdr_for_cloud_demo.yaml 의 이미지 경로 확인 및 수정 후 kubectl create -f xdr_for_cloud_demo.yaml 수행
 
 #### STEP 4. kubectl get all 로 pod 및 service 확인
 
